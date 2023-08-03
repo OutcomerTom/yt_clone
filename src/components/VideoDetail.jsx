@@ -13,18 +13,15 @@ const VideoDetail = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    // fetchFromAPI(`videos?part=snippet,statistics&id=${id}`)
-    //   .then((data) => setVideoDetail(data.items[0]))
-    fetchFromAPI(`videos`, {part: 'snippet', id: id}).then((data) => setVideoDetail(data.items[0]));
+ 
+    fetchFromAPI(`video`, {id: id, query: ''}).then((data) => setVideoDetail(data));
 
-    // fetchFromAPI(`search?part=snippet&relatedToVideoId=${id}&type=video`)
-    //   .then((data) => setVideos(data.items))
-    fetchFromAPI(`search`, {part: 'snippet', relatedToVideoId: id, type: 'video'}).then((data) => setVideos(data.items));
+    fetchFromAPI(`search`, {relatedToVideoId: id, type: 'video', query: ''}).then((data) => setVideos(data.items));
   }, [id]);
 
-  if(!videoDetail?.snippet) return <Loader />;
+  if(!videoDetail) return <Loader />;
 
-  const { snippet: { title, channelId, channelTitle }, statistics: { viewCount, likeCount } } = videoDetail;
+  const { title, channelTitle, channelId, viewCount, uploadDate } = videoDetail;
 
   return (
     <Box minHeight="95vh">
@@ -44,10 +41,10 @@ const VideoDetail = () => {
               </Link>
               <Stack direction="row" gap="20px" alignItems="center">
                 <Typography variant="body1" sx={{ opacity: 0.7 }}>
-                  {parseInt(viewCount).toLocaleString()} views
+                  {viewCount} views
                 </Typography>
                 <Typography variant="body1" sx={{ opacity: 0.7 }}>
-                  {parseInt(likeCount).toLocaleString()} likes
+                  Uploaded: {uploadDate}
                 </Typography>
               </Stack>
             </Stack>

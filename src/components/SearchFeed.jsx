@@ -13,7 +13,7 @@ const SearchFeed = () => {
   //   fetchFromAPI(`search?part=snippet&q=${searchTerm}`)
   //     .then((data) => setVideos(data.items))
   // }, [searchTerm]);
-  fetchFromAPI(`search`, {part: 'snippet', q: searchTerm })
+  fetchFromAPI(`search`, {part: 'snippet', query: searchTerm })
   .then((data) => setVideos(data.items));
   }, [searchTerm]);
 
