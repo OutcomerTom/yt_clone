@@ -26,7 +26,7 @@ const ChannelDetail = () => {
   }, [id]);
   if(!channelDetail) return <Loader />;
 
-  const { title, channelTitle, channelId, viewCount, uploadDate } = channelDetail;
+  // const { title, channelTitle, channelId, viewCount, uploadDate } = channelDetail;
 
   return (
     <Box minHeight="95vh">
