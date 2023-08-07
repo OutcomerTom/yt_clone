@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Box } from "@mui/material";
+import { Box, Typogtraphy, Stack } from "@mui/material";
 
-import { Videos, ChannelCard } from "./";
+import { Videos, ChannelCard, Loader } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const ChannelDetail = () => {
   const [channelDetail, setChannelDetail] = useState();
-  const [videos, setVideos] = useState(null);
-
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
-    // const fetchResults = async () => {
-    //   const data = await fetchFromAPI(`channels?part=snippet&id=${id}`);
+  
+    // fetchFromAPI(`channels`, {part: 'snippet', id: id}).then((data) => setChannelDetail(data.items[0]));
 
-    //   setChannelDetail(data?.items[0]);
+    setIsLoading(true);
+    fetchFromAPI(`channel`, {id: id, query: ''}).then((data) => setChannelDetail(data));
 
-    //   const videosData = await fetchFromAPI(`search?channelId=${id}&part=snippet%2Cid&order=date`);
-
-    //   setVideos(videosData?.items);
-    // };
-
-    // fetchResults();
-    fetchFromAPI(`channels`, {part: 'snippet', id: id}).then((data) => setChannelDetail(data.items[0]));
-
-    fetchFromAPI(`search`, {channelId: id, part: 'snippet', order: 'data', type: 'video'}).then((data) => setVideos(data.items));
+    fetchFromAPI(`search`, {channelId: id, order: 'data', type: 'video'}).then((data) => {
+      setIsLoading(false);
+      setVideos(data.items);
+    });
 
   }, [id]);
+  if(!channelDetail) return <Loader />;
+
+  const { title, channelTitle, channelId, viewCount, uploadDate } = channelDetail;
 
   return (
     <Box minHeight="95vh">
@@ -41,7 +40,7 @@ const ChannelDetail = () => {
       </Box>
       <Box p={2} display="flex">
       <Box sx={{ mr: { sm: '100px' } }}/>
-        <Videos videos={videos} />
+        <Videos videos={videos} isLoading={isLoading} />
       </Box>
     </Box>
   );

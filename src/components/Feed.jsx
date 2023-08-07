@@ -6,16 +6,21 @@ import { Videos, Sidebar } from "./";
 
 const Feed = () => {
   const [selectedCategory, setSelectedCategory] = useState("New");
-  const [videos, setVideos] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setVideos(null);
+    setVideos([]);
 
     // fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
     //   .then((data) => setVideos(data.items))
     // }, [selectedCategory]);
-    fetchFromAPI(`search`, {part: 'snippet', query: selectedCategory })
-      .then(({data}) => setVideos(data));
+    setIsLoading(true);
+    fetchFromAPI(`search`, {query: selectedCategory })
+      .then(({data}) => {
+        setIsLoading(false);
+        setVideos(data);
+      });
   }, [selectedCategory]);
 
   return (
@@ -33,7 +38,7 @@ const Feed = () => {
           {selectedCategory} <span style={{ color: "#FC1503" }}>videos</span>
         </Typography>
 
-        <Videos videos={videos} />
+        <Videos videos={videos} isLoading={isLoading} />
       </Box>
     </Stack>
   );

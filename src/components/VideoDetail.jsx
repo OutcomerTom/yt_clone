@@ -9,14 +9,23 @@ import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
-  const [videos, setVideos] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
  
-    fetchFromAPI(`video`, {id: id, query: ''}).then((data) => setVideoDetail(data));
+    setIsLoading(true);
 
-    fetchFromAPI(`search`, {relatedToVideoId: id, type: 'video', query: ''}).then((data) => setVideos(data.items));
+    fetchFromAPI(`video`, {id: id, query: ''}).then((data) => {
+      setIsLoading(false);
+      setVideoDetail(data);
+    });
+
+    fetchFromAPI(`search`, {relatedToVideoId: id, type: 'video', query: ''}).then((data) => {
+      setIsLoading(false);
+      setVideos(data.items);
+    });
   }, [id]);
 
   if(!videoDetail) return <Loader />;
@@ -51,7 +60,7 @@ const VideoDetail = () => {
           </Box>
         </Box>
         <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
-          <Videos videos={videos} direction="column" />
+          <Videos videos={videos} direction="column" isLoading={isLoading} />
         </Box>
       </Stack>
     </Box>

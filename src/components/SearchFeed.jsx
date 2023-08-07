@@ -6,15 +6,20 @@ import { fetchFromAPI } from "../utils/fetchFromAPI";
 import { Videos } from "./";
 
 const SearchFeed = () => {
-  const [videos, setVideos] = useState(null);
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const { searchTerm } = useParams();
 
   useEffect(() => {
   //   fetchFromAPI(`search?part=snippet&q=${searchTerm}`)
   //     .then((data) => setVideos(data.items))
   // }, [searchTerm]);
-  fetchFromAPI(`search`, {part: 'snippet', query: searchTerm })
-  .then((data) => setVideos(data.items));
+  setIsLoading(true);
+  fetchFromAPI(`search`, {query: searchTerm })
+  .then(({ data }) => {
+    setIsLoading(false);
+    setVideos(data);
+  });
   }, [searchTerm]);
 
   return (
@@ -24,7 +29,7 @@ const SearchFeed = () => {
       </Typography>
       <Box display="flex">
         <Box sx={{ mr: { sm: '100px' } }}/>
-        {<Videos videos={videos} />}
+        {<Videos videos={videos} isLoading={isLoading} />}
       </Box>
     </Box>
   );
