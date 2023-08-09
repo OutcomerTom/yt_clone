@@ -17,7 +17,7 @@ const VideoDetail = () => {
  
     setIsLoading(true);
 
-    fetchFromAPI(`video`, {id: id, query: ''}).then((data) => {
+    fetchFromAPI(`video`, {id: id, query: '', channelId: "UC783dnzJqf2ghHp_pFLYbGA" }).then((data) => {
       setIsLoading(false);
       setVideoDetail(data);
     });

@@ -16,6 +16,7 @@ const ChannelDetail = () => {
     // fetchFromAPI(`channels`, {part: 'snippet', id: id}).then((data) => setChannelDetail(data.items[0]));
 
     setIsLoading(true);
+
     fetchFromAPI(`channel`, {id: id, query: ''}).then((data) => setChannelDetail(data));
 
     fetchFromAPI(`search`, {channelId: id, order: 'data', type: 'video'}).then((data) => {
@@ -24,6 +25,7 @@ const ChannelDetail = () => {
     });
 
   }, [id]);
+  
   if(!channelDetail) return <Loader />;
 
   // const { title, channelTitle, channelId, viewCount, uploadDate } = channelDetail;

@@ -5,7 +5,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import { demoThumbnailUrl, demoVideoUrl, demoVideoTitle, demoChannelUrl, demoChannelTitle } from "../utils/constants";
 
-const VideoCard = ({ video: { videoId, channelId, channelTitle, thumbnail, title }}) => (
+const VideoCard = ({ video: { videoId, channelId, channelTitle, thumbnail, title, viewCount, publishedText }}) => (
   <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 0 }}>
     <Link to={videoId ? `/video/${videoId}` : `/video/cV2gBU6hKfY` }>
       <CardMedia image={thumbnail?.[0]?.url || demoThumbnailUrl} alt={title} 
@@ -22,6 +22,12 @@ const VideoCard = ({ video: { videoId, channelId, channelTitle, thumbnail, title
         <Typography variant="subtitle2" color="gray">
           {channelTitle || demoChannelTitle}
           <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
+        </Typography>
+        <Typography variant="body1" sx={{ opacity: 0.7, fontSize: "12px", color: "gray", ml: "5px" }}>
+          {viewCount} views
+        </Typography>
+        <Typography variant="body1" sx={{ opacity: 0.7, fontSize: "12px", color: "gray", ml: "5px" }}>
+          Published {publishedText}
         </Typography>
       </Link>
     </CardContent>
