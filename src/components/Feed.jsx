@@ -10,12 +10,11 @@ const Feed = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+
     setVideos([]);
 
-    // fetchFromAPI(`search?part=snippet&q=${selectedCategory}`)
-    //   .then((data) => setVideos(data.items))
-    // }, [selectedCategory]);
     setIsLoading(true);
+    
     fetchFromAPI(`search`, {query: selectedCategory })
       .then(({data}) => {
         setIsLoading(false);

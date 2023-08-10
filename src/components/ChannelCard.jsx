@@ -6,9 +6,8 @@ import { demoProfilePicture, demoChannelUrl, demoChannelTitle } from '../utils/c
 
 const ChannelCard = ({ video, marginTop, channelId }) => {
 
-  // const { channelId, marginTop, publishedText, channelThumbnail, channelTitle, avatar } = video?.meta || {};
   const {title, channelThumbnail, description, thumbnail} = video || {};
-// console.log("dupa", video)
+
   return (
     <Box
       sx={{

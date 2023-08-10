@@ -4,28 +4,20 @@ import ReactPlayer from "react-player";
 import { Typography, Box, Stack } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import { Videos, Loader } from "./";
+import { Loader } from "./";
 import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const VideoDetail = () => {
   const [videoDetail, setVideoDetail] = useState(null);
-  const [videos, setVideos] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+ 
   const { id } = useParams();
 
   useEffect(() => {
- 
-    setIsLoading(true);
 
     fetchFromAPI(`video`, {id: id, query: '' }).then((data) => {
-      setIsLoading(false);
       setVideoDetail(data);
     });
 
-    // fetchFromAPI(`search`, {relatedToVideoId: id, type: 'video', query: ''}).then((data) => {
-    //   setIsLoading(false);
-    //   setVideos(data.items);
-    // });
   }, [id]);
 
   if(!videoDetail) return <Loader />;
@@ -59,9 +51,6 @@ const VideoDetail = () => {
             </Stack>
           </Box>
         </Box>
-        {/* <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
-          <Videos videos={videos} direction="column" isLoading={isLoading} />
-        </Box> */}
       </Stack>
     </Box>
   );
