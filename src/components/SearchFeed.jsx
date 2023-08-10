@@ -11,23 +11,28 @@ const SearchFeed = () => {
   const { searchTerm } = useParams();
 
   useEffect(() => {
+    setIsLoading(true);
 
-  setIsLoading(true);
-  
-  fetchFromAPI(`search`, {query: searchTerm })
-  .then(({ data }) => {
-    setIsLoading(false);
-    setVideos(data);
-  });
+    fetchFromAPI(`search`, { query: searchTerm }).then(({ data }) => {
+      setIsLoading(false);
+      setVideos(data);
+    });
   }, [searchTerm]);
 
   return (
     <Box p={2} minHeight="95vh">
-      <Typography variant="h4" fontWeight={900}  color="white" mb={3} ml={{ sm: "100px"}}>
-        Search Results for <span style={{ color: "#FC1503" }}>{searchTerm}</span> videos
+      <Typography
+        variant="h4"
+        fontWeight={900}
+        color="white"
+        mb={3}
+        ml={{ sm: "100px" }}
+      >
+        Search Results for{" "}
+        <span style={{ color: "#FC1503" }}>{searchTerm}</span> videos
       </Typography>
       <Box display="flex">
-        <Box sx={{ mr: { sm: '100px' } }}/>
+        <Box sx={{ mr: { sm: "100px" } }} />
         {<Videos videos={videos} isLoading={isLoading} />}
       </Box>
     </Box>
