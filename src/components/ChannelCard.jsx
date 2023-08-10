@@ -8,7 +8,7 @@ import {
   demoChannelTitle,
 } from "../utils/constants";
 
-const ChannelCard = ({ video, marginTop, channelId }) => {
+const ChannelCard = ({ video, marginTop, channelId, marginBottom }) => {
   const { title, channelThumbnail, description, thumbnail } = video || {};
 
   return (
@@ -23,6 +23,7 @@ const ChannelCard = ({ video, marginTop, channelId }) => {
         height: "326px",
         margin: "auto",
         marginTop,
+        marginBottom,
       }}
     >
       <Link to={channelId ? `/channel/${channelId}` : demoChannelUrl}>
@@ -35,6 +36,7 @@ const ChannelCard = ({ video, marginTop, channelId }) => {
             textAlign: "center",
             color: "#fff",
             objectPosition: "center",
+            // textOverflow: "ellipsis",
           }}
         >
           <CardMedia
@@ -52,15 +54,35 @@ const ChannelCard = ({ video, marginTop, channelId }) => {
               border: "1px solid #e3e3e3",
             }}
           />
-          <Typography variant="subtitle2" color="light-gray">
+          <Typography
+            variant="subtitle2"
+            color="light-gray"
+            sx={{
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+              whiteSpace: "nowrap",
+              width: "200px",
+              gap: "20px",
+              paddingBottom: "20px",
+            }}
+          >
             {title || demoChannelTitle}
             <CheckCircleIcon
-              sx={{ fontSize: "12px", color: "gray", ml: "5px" }}
+              sx={{
+                fontSize: "12px",
+                color: "gray",
+                ml: "5px",
+              }}
             />
           </Typography>
           <Typography
             variant="body1"
-            sx={{ opacity: 0.7, fontSize: "12px", color: "gray", ml: "5px" }}
+            sx={{
+              opacity: 0.7,
+              fontSize: "12px",
+              color: "gray",
+              ml: "5px",
+            }}
           >
             {description}
           </Typography>

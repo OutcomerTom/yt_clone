@@ -21,7 +21,6 @@ const ChannelDetail = () => {
 
   if (!channelDetail) return <Loader />;
 
-  console.log("tescior", channelDetail.data);
   return (
     <Box minHeight="95vh">
       <Box>
@@ -39,11 +38,11 @@ const ChannelDetail = () => {
         />
         <ChannelCard
           video={channelDetail.meta}
-          marginTop="-93px"
+          marginTop="-10px"
           channelId={channelDetail?.id}
         />
       </Box>
-      <Box p={2} display="flex">
+      <Box p={2} display="flex" marginTop="32px">
         <Box sx={{ mr: { sm: "100px" } }} />
         <Videos videos={channelDetail.data} isLoading={isLoading} />
       </Box>
