@@ -17,15 +17,15 @@ const VideoDetail = () => {
  
     setIsLoading(true);
 
-    fetchFromAPI(`video`, {id: id, query: '', channelId: "UC783dnzJqf2ghHp_pFLYbGA" }).then((data) => {
+    fetchFromAPI(`video`, {id: id, query: '' }).then((data) => {
       setIsLoading(false);
       setVideoDetail(data);
     });
 
-    fetchFromAPI(`search`, {relatedToVideoId: id, type: 'video', query: ''}).then((data) => {
-      setIsLoading(false);
-      setVideos(data.items);
-    });
+    // fetchFromAPI(`search`, {relatedToVideoId: id, type: 'video', query: ''}).then((data) => {
+    //   setIsLoading(false);
+    //   setVideos(data.items);
+    // });
   }, [id]);
 
   if(!videoDetail) return <Loader />;
@@ -59,9 +59,9 @@ const VideoDetail = () => {
             </Stack>
           </Box>
         </Box>
-        <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
+        {/* <Box px={2} py={{ md: 1, xs: 5 }} justifyContent="center" alignItems="center" >
           <Videos videos={videos} direction="column" isLoading={isLoading} />
-        </Box>
+        </Box> */}
       </Stack>
     </Box>
   );

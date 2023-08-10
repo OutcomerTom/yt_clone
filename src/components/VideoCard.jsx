@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Typography, Card, CardContent, CardMedia } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-import { demoThumbnailUrl, demoVideoUrl, demoVideoTitle, demoChannelUrl, demoChannelTitle } from "../utils/constants";
+import { demoThumbnailUrl, demoVideoUrl, demoVideoTitle } from "../utils/constants";
 
 const VideoCard = ({ video: { videoId, channelId, channelTitle, thumbnail, title, viewCount, publishedText }}) => (
   <Card sx={{ width: { xs: '100%', sm: '358px', md: "320px", }, boxShadow: "none", borderRadius: 0 }}>
@@ -18,11 +18,11 @@ const VideoCard = ({ video: { videoId, channelId, channelTitle, thumbnail, title
           {title || demoVideoTitle}
         </Typography>
       </Link>
-      <Link to={channelId ? `/channel/${channelId}` : demoChannelUrl} >
-        <Typography variant="subtitle2" color="gray">
-          {channelTitle || demoChannelTitle}
+      <Link to={`/channel/${channelId}`} >
+        {channelId && <Typography variant="subtitle2" color="gray">
+          {channelTitle}
           <CheckCircleIcon sx={{ fontSize: "12px", color: "gray", ml: "5px" }} />
-        </Typography>
+        </Typography>}
         <Typography variant="body1" sx={{ opacity: 0.7, fontSize: "12px", color: "gray", ml: "5px" }}>
           {viewCount} views
         </Typography>
